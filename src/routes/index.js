@@ -1,9 +1,13 @@
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect, Fragment, useContext} from "react";
 import AuthRoutes from "./AuthRoutes";
 import AppRoutes from "./AppRoutes";
-const isSignedIn = false;
-const index = () => {
-  return <Fragment>{isSignedIn ? <AppRoutes /> : <AuthRoutes />}</Fragment>;
+import AuthContext from "../store/auth-context";
+
+const Index = () => {
+  const {isSignIn} = useContext(AuthContext);
+  console.log("isSignIn: ", isSignIn);
+
+  return <Fragment>{isSignIn ? <AppRoutes /> : <AuthRoutes />}</Fragment>;
 };
 
-export default index;
+export default Index;

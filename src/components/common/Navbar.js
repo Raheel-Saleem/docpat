@@ -1,10 +1,18 @@
 import React, {useContext} from "react";
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link, useNavigate} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 
 const Navbar = () => {
-  const {isSignIn} = useContext(AuthContext);
+  const {isSignIn, onLogout, onLogin} = useContext(AuthContext);
+  let navigate = useNavigate();
 
+  function handleLogin() {
+    navigate("login", {replace: true});
+  }
+  function handleLogout() {
+    navigate("login", {replace: true});
+    onLogout();
+  }
   return (
     <div>
       <>
@@ -51,14 +59,7 @@ const Navbar = () => {
                   <i className="far fa-hospital"></i>
                 </div>
 
-                <li
-                  className="nav-item"
-                  onClick={
-                    isSignIn
-                      ? () => console.log("logout should be executed")
-                      : () => console.log("login should be executed")
-                  }
-                >
+                <li className="nav-item" onClick={isSignIn ? handleLogout : handleLogin}>
                   <Link className="nav-link header-login" to="#">
                     {isSignIn ? "Logout" : "Login"}
                   </Link>

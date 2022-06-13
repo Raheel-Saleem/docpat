@@ -8,7 +8,7 @@ function CustomLoader() {
   return ctx.isLoad ? (
     <div>
       <Backdrop sx={{color: "#FFFFFF", zIndex: (theme) => theme.zIndex.drawer + 1}} open={ctx.isLoad}>
-        <CircleLoader color={"#FFFFFF"} loading={ctx.isLoad} size={100} />
+        <CircleLoader color={"#0de0fe"} loading={ctx.isLoad} size={100} />
       </Backdrop>
     </div>
   ) : (

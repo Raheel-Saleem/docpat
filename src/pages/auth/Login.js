@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
-import {BrowserRouter as Router, Link, Navigate} from "react-router-dom";
+import {BrowserRouter as Router, Link, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import LoaderContext from "../../store/loder-context";
 import AuthContext from "../../store/auth-context";
@@ -12,13 +12,12 @@ const initialValues = {
 };
 
 export default function Login() {
-  const loaderCtx = useContext(LoaderContext);
-  const authCtx = useContext(AuthContext);
-
+  const {startLoading, stopLoading} = useContext(LoaderContext);
+  const {onLogin} = useContext(AuthContext);
+  let navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     onSubmit: (values, onSubmitProps) => {
-      console.log("form submit values", values);
       handleLogin(values);
       onSubmitProps.setSubmitting(false);
       onSubmitProps.resetForm();
@@ -27,10 +26,16 @@ export default function Login() {
 
   const handleLogin = async (data) => {
     try {
+      startLoading();
       const response = await server.post("/login", data);
-      console.log("response: ", response);
+      if (response.status >= 400 && response.status < 500) swal(success);
+      onLogin();
+      navigate("../", {replace: false});
+      stopLoading();
     } catch (error) {
-      console.log("error: ", error);
+      stopLoading();
+
+      swal("Opps", `${error.response.data}`, "error");
     }
   };
 
@@ -70,11 +75,11 @@ export default function Login() {
                         />
                         <label className="focus-label">Password</label>
                       </div>
-                      <div className="text-right">
+                      {/* <div className="text-right">
                         <Link className="forgot-link" to="forgot-password.html">
                           Forgot Password ?
                         </Link>
-                      </div>
+                      </div> */}
                       {/* <Link to="/"> */}
                       <button className="btn btn-primary btn-block btn-lg login-btn" type="submit">
                         Login
@@ -86,7 +91,7 @@ export default function Login() {
                       </div>
 
                       <div className="text-center dont-have">
-                        Don’t have an account? <Link to="register.html">Register</Link>
+                        Don’t have an account? <Link to="../signup">Register</Link>
                       </div>
                     </form>
                   </div>

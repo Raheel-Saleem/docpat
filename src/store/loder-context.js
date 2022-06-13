@@ -15,6 +15,9 @@ export const LoaderContextProvider = ({children}) => {
   function handleStopLoader() {
     setLoad(false);
   }
+  // useEffect(() => {
+  //   console.log("isLoad: ", isLoad);
+  // }, [isLoad]);
 
   return (
     <>

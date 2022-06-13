@@ -1,6 +1,57 @@
-import React from "react";
+import React, {useEffect, useState, useContext} from "react";
+import {BrowserRouter as Router, Link, useNavigate} from "react-router-dom";
+import {useFormik} from "formik";
+import LoaderContext from "../../store/loder-context";
+import AuthContext from "../../store/auth-context";
+import swal from "sweetalert";
+import {success, fail, internalError} from "../../utils/alert-messages";
+import server from "../../utils/server";
+import axios from "axios";
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  phone: "",
+};
 
 const Register = () => {
+  const {startLoading, stopLoading} = useContext(LoaderContext);
+  const {onLogin} = useContext(AuthContext);
+  let navigate = useNavigate();
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, onSubmitProps) => {
+      handleSignup(values);
+      onSubmitProps.setSubmitting(false);
+      onSubmitProps.resetForm();
+    },
+  });
+
+  const handleSignup = async (data) => {
+    try {
+      startLoading();
+      const response = await axios.post("/register", data);
+      console.log("response: ", response);
+      if (response.status >= 400 && response.status < 500) {
+        swal(fail);
+        return;
+      }
+      onLogin();
+      // navigate("/", {replace: true});
+      stopLoading();
+      swal({
+        title: "Congratulations!",
+        text: "Your acccount is successfully created!",
+        icon: "success",
+        button: "Okay!",
+      });
+    } catch (error) {
+      console.log("error: ", error);
+      stopLoading();
+      swal("Opps", `${error.response.data}`, "error");
+    }
+  };
   return (
     <div className="main-wrapper">
       <div className="content" style={{minHeight: "170px"}}>
@@ -17,14 +68,19 @@ const Register = () => {
                       <h3>Register </h3>
                     </div>
 
-                    <form action="https://doccure-laravel.dreamguystech.com/template/public/doctor-dashboard">
+                    <form onSubmit={formik.handleSubmit}>
                       <div className="row form-row">
                         <div className="col-md-6">
                           <div className="form-group">
                             <label>
                               First Name <span className="text-danger">*</span>
                             </label>
-                            <input type="text" className="form-control" />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstName"
+                              {...formik.getFieldProps("firstName")}
+                            />
                           </div>
                         </div>
                         <div className="col-md-6">
@@ -32,7 +88,12 @@ const Register = () => {
                             <label>
                               Last Name <span className="text-danger">*</span>
                             </label>
-                            <input type="text" className="form-control" />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="lastName"
+                              {...formik.getFieldProps("lastName")}
+                            />
                           </div>
                         </div>
                         <div className="col-md-12">
@@ -40,7 +101,12 @@ const Register = () => {
                             <label>
                               Email <span className="text-danger">*</span>
                             </label>
-                            <input type="text" className="form-control" />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="email"
+                              {...formik.getFieldProps("email")}
+                            />
                           </div>
                         </div>
                         <div className="col-md-12">
@@ -48,7 +114,12 @@ const Register = () => {
                             <label>
                               Password <span className="text-danger">*</span>
                             </label>
-                            <input type="text" className="form-control" />
+                            <input
+                              type="password"
+                              className="form-control"
+                              name="password"
+                              {...formik.getFieldProps("password")}
+                            />
                           </div>
                         </div>
                         <div className="col-md-12">
@@ -56,7 +127,12 @@ const Register = () => {
                             <label>
                               Phone no <span className="text-danger">*</span>
                             </label>
-                            <input type="text" className="form-control" />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="phone"
+                              {...formik.getFieldProps("phone")}
+                            />
                           </div>
                         </div>
                       </div>
