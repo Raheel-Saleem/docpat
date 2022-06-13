@@ -6,6 +6,8 @@ import AuthContext from "../../store/auth-context";
 import swal from "sweetalert";
 import {success, fail, internalError} from "../../utils/alert-messages";
 import server from "../../utils/server";
+import {setToken} from "../../utils/token";
+import jwt_decode from "jwt-decode";
 const initialValues = {
   email: "",
   password: "",
@@ -28,8 +30,12 @@ export default function Login() {
     try {
       startLoading();
       const response = await server.post("/login", data);
+      const token = response.data[0];
+      setToken(token);
+      var decoded = jwt_decode(token);
+      const {exp, ...user} = decoded;
       if (response.status >= 400 && response.status < 500) swal(success);
-      onLogin();
+      onLogin(user);
       navigate("../", {replace: false});
       stopLoading();
     } catch (error) {
