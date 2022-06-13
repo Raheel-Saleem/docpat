@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import {BrowserRouter as Router, Link, useNavigate} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import {removeToken} from "./../../utils/token";
 
 const Navbar = () => {
   const {isSignIn, onLogout, onLogin} = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Navbar = () => {
   function handleLogout() {
     navigate("login", {replace: true});
     onLogout();
+    removeToken();
   }
   return (
     <div>

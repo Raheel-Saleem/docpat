@@ -7,6 +7,24 @@ import Pricing from "./Pricing";
 import Specialization from "./Specialization";
 import Education from "./Education";
 import Experience from "./Experience";
+const initialProfileState = {
+  firstName: "",
+  lastName: "",
+  phoneNo: "",
+  gender: "",
+  dob: "",
+  biography: "",
+  address: "",
+  city: "",
+  state: "",
+  country: "",
+  postalCode: "",
+  pricing: "",
+  services: [],
+  specialization: [],
+  education: [],
+  experience: [],
+};
 export default function Profile() {
   const m = {
     marginBottom: "10px",

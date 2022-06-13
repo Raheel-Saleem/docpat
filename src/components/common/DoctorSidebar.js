@@ -32,24 +32,14 @@ export default function DoctorSidebar() {
                   <span>Appointments</span>
                 </Link>
               </li>
-              <li>
-                <Link to="my-patients.html">
-                  <i class="fas fa-user-injured"></i>
-                  <span>My Patients</span>
-                </Link>
-              </li>
+
               <li>
                 <Link to="schedule">
                   <i class="fas fa-hourglass-start"></i>
                   <span>Schedule Timings</span>
                 </Link>
               </li>
-              <li>
-                <Link to="available-timings.html">
-                  <i class="fas fa-clock"></i>
-                  <span>Available Timings</span>
-                </Link>
-              </li>
+
               <li>
                 <Link to="invoices.html">
                   <i class="fas fa-file-invoice"></i>
@@ -68,13 +58,7 @@ export default function DoctorSidebar() {
                   <span>Reviews</span>
                 </Link>
               </li>
-              <li>
-                <Link to="chat-doctor.html">
-                  <i class="fas fa-comments"></i>
-                  <span>Message</span>
-                  <small class="unread-msg">23</small>
-                </Link>
-              </li>
+
               <li>
                 <Link to="profile">
                   <i class="fas fa-user-cog"></i>

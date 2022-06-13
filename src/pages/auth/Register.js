@@ -31,14 +31,15 @@ const Register = () => {
   const handleSignup = async (data) => {
     try {
       startLoading();
-      const response = await axios.post("/register", data);
+      const response = await server.post("/signup", data);
+      const {phoneNo, ...user} = response.data;
       console.log("response: ", response);
       if (response.status >= 400 && response.status < 500) {
         swal(fail);
         return;
       }
-      onLogin();
-      // navigate("/", {replace: true});
+      onLogin(user);
+      navigate("/", {replace: true});
       stopLoading();
       swal({
         title: "Congratulations!",
@@ -47,7 +48,6 @@ const Register = () => {
         button: "Okay!",
       });
     } catch (error) {
-      console.log("error: ", error);
       stopLoading();
       swal("Opps", `${error.response.data}`, "error");
     }
