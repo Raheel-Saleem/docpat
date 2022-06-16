@@ -11,6 +11,10 @@ import Profile from "../pages/doctors/profile";
 import Schedule from "../pages/doctors/schedule/ScheduleTiming";
 import SocialMedia from "../pages/doctors/SocialMedia/SocialMedia";
 import ChangePassword from "../pages/doctors/change-password/ChangePassword";
+import Accounts from "../pages/doctors/Accounts/Accounts";
+import SearchDoctor from "../pages/patients/SearchDoctor/Search-doctor";
+import Appointments from "../pages/doctors/appointments/Appointments";
+import PatientLayout from "../layout/PatientLayout";
 const isDoctor = true;
 function AppRoutes() {
   return (
@@ -25,9 +29,13 @@ function AppRoutes() {
             <Route path="schedule" element={<Schedule />} />
             <Route path="social" element={<SocialMedia />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="account" element={<Accounts />} />
+            <Route path="appoint" element={<Appointments />} />
           </Route>
         ) : (
-          <Route path="patient" element={<Patient />}></Route>
+          <Route element={<PatientLayout />}>
+            <Route path="all-doc" element={<SearchDoctor />}></Route>
+          </Route>
         )}
       </Route>
       <Route path="*" element={<NotFound />}></Route>

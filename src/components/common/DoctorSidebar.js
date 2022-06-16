@@ -27,7 +27,7 @@ export default function DoctorSidebar() {
                 </Link>
               </li>
               <li>
-                <Link to="appointments.html">
+                <Link to="appoint">
                   <i class="fas fa-calendar-check"></i>
                   <span>Appointments</span>
                 </Link>
@@ -41,13 +41,7 @@ export default function DoctorSidebar() {
               </li>
 
               <li>
-                <Link to="invoices.html">
-                  <i class="fas fa-file-invoice"></i>
-                  <span>Invoices</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="accounts.html">
+                <Link to="account">
                   <i class="fas fa-file-invoice-dollar"></i>
                   <span>Accounts</span>
                 </Link>
