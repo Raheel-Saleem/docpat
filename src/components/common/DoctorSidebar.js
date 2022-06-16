@@ -66,19 +66,19 @@ export default function DoctorSidebar() {
                 </Link>
               </li>
               <li>
-                <Link to="social-media.html">
+                <Link to="social">
                   <i class="fas fa-share-alt"></i>
                   <span>Social Media</span>
                 </Link>
               </li>
               <li>
-                <Link to="doctor-change-password.html">
+                <Link to="change-password">
                   <i class="fas fa-lock"></i>
                   <span>Change Password</span>
                 </Link>
               </li>
               <li>
-                <Link to="index.html">
+                <Link to="/">
                   <i class="fas fa-sign-out-alt"></i>
                   <span>Logout</span>
                 </Link>

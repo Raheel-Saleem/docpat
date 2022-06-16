@@ -9,8 +9,8 @@ import Dashboard from "../pages/doctors/dashboard";
 import DoctorLayout from "../layout/DoctorLayout";
 import Profile from "../pages/doctors/profile";
 import Schedule from "../pages/doctors/schedule/ScheduleTiming";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+import SocialMedia from "../pages/doctors/SocialMedia/SocialMedia";
+import ChangePassword from "../pages/doctors/change-password/ChangePassword";
 const isDoctor = true;
 function AppRoutes() {
   return (
@@ -23,6 +23,8 @@ function AppRoutes() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
             <Route path="schedule" element={<Schedule />} />
+            <Route path="social" element={<SocialMedia />} />
+            <Route path="change-password" element={<ChangePassword />} />
           </Route>
         ) : (
           <Route path="patient" element={<Patient />}></Route>

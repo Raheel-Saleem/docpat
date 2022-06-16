@@ -6,7 +6,6 @@ import AuthContext from "../../store/auth-context";
 import swal from "sweetalert";
 import {success, fail, internalError} from "../../utils/alert-messages";
 import server from "../../utils/server";
-import axios from "axios";
 const initialValues = {
   firstName: "",
   lastName: "",

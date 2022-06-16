@@ -1,21 +1,31 @@
-import React from "react";
-const st = { display: "none" };
-export default function Pricing() {
+import React, {useState} from "react";
+const st = {display: "none"};
+export default function Pricing({onSetProfile}) {
+  const [isCustom, setCustom] = useState(false);
+  function handleChange(v) {
+    if (v === "price_free") {
+      setCustom(false);
+      onSetProfile("pricing", "0");
+    }
+    if (v === "custom_price") {
+      setCustom(true);
+    }
+  }
   return (
     <div>
       <div className="card">
         <div className="card-body">
           <h4 className="card-title">Pricing</h4>
           <div className="form-group mb-0">
-            <div id="pricing_select">
+            <div>
               <div className="custom-control custom-radio custom-control-inline">
                 <input
                   type="radio"
                   id="price_free"
-                  name="rating_option"
+                  name="p"
                   className="custom-control-input"
                   value="price_free"
-                  checked
+                  onChange={(e) => handleChange(e.target.value)}
                 />
                 <label className="custom-control-label" for="price_free">
                   Free
@@ -25,9 +35,10 @@ export default function Pricing() {
                 <input
                   type="radio"
                   id="price_custom"
-                  name="rating_option"
+                  name="p"
                   value="custom_price"
                   className="custom-control-input"
+                  onChange={(e) => handleChange(e.target.value)}
                 />
                 <label className="custom-control-label" for="price_custom">
                   Custom Price (per hour)
@@ -35,25 +46,21 @@ export default function Pricing() {
               </div>
             </div>
           </div>
-          <div
-            className="row custom_price_cont"
-            id="custom_price_cont"
-            style={st}
-          >
-            <div className="col-md-4">
-              <input
-                type="text"
-                className="form-control"
-                id="custom_rating_input"
-                name="custom_rating_count"
-                value=""
-                placeholder="20"
-              />
-              <small className="form-text text-muted">
-                Custom price you can add
-              </small>
+          {isCustom && (
+            <div className="row custom_price_cont">
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="custom_rating_input"
+                  name="custom_rating_count"
+                  placeholder="20"
+                  onChange={(e) => onSetProfile("pricing", e.target.value)}
+                />
+                <small className="form-text text-muted">Custom price you can add</small>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
