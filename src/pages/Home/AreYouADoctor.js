@@ -1,6 +1,9 @@
-import React from "react";
-
-export default function AreYouADoctor() {
+import {Modal, Button} from "react-bootstrap";
+import {useContext} from "react";
+import AuthContext from "../../store/auth-context";
+import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
+function AreYouADoctor() {
   return (
     <section class="patient-select">
       <div class="container">
@@ -14,15 +17,14 @@ export default function AreYouADoctor() {
                   </span>
                 </div>
                 <div>
-                  <h2>ARE YOU A DOCTOR?</h2>
+                  <h2>BECOMEA DOCTOR?</h2>
                   <p>
-                    The service allows you to get maximum visibility online and
-                    to manage appointments and contacts coming from the site, in
-                    a simple and fast way.
+                    The service allows you to get maximum visibility online and to manage appointments and
+                    contacts coming from the site, in a simple and fast way.
                   </p>
-                  <a href="booking.html" class="book-now">
-                    Book Now
-                  </a>
+                  <Link to="profile" class="book-now">
+                    SETUP
+                  </Link>
                 </div>
               </div>
             </div>
@@ -36,15 +38,14 @@ export default function AreYouADoctor() {
                   </span>
                 </div>
                 <div>
-                  <h2>ARE YOU A DOCTOR?</h2>
+                  <h2>BECOME A PATIENT?</h2>
                   <p>
-                    Choosing a specialist has never been so fast! You can filter
-                    search results by location and medical specialization, and
-                    book medical examination online.
+                    Choosing a specialist has never been so fast! You can filter search results by location
+                    and medical specialization, and book medical examination online.
                   </p>
-                  <a href="booking.html" class="book-now">
-                    Book Now
-                  </a>
+                  <Link to="pat-profile" class="book-now">
+                    SETUP
+                  </Link>
                 </div>
               </div>
             </div>
@@ -52,5 +53,35 @@ export default function AreYouADoctor() {
         </div>
       </div>
     </section>
+  );
+}
+export default function ProfileModal() {
+  const {user} = useContext(AuthContext);
+  const [show, setShow] = useState(!user.isProfileCompleted);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    console.log("show: ", show);
+  }, [show]);
+  return (
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size="xl"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton style={{background: "#20d7f2"}}>
+        <Modal.Title style={{fontSize: "30px", fontWeight: " 700", color: "#fff"}}>SETUP PROFILE</Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{background: "azure"}}>
+        <AreYouADoctor />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => handleClose()}>Close</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

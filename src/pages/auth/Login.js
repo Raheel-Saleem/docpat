@@ -34,8 +34,13 @@ export default function Login() {
       setToken(token);
       var decoded = jwt_decode(token);
       const {exp, ...user} = decoded;
+      console.log("user: ", user);
+
       if (response.status >= 400 && response.status < 500) swal(success);
+      // if (user.role == "role") user["isProfileCompleted"] = true;
+      // else user["isProfileCompleted"] = true;
       onLogin(user);
+
       navigate("../", {replace: false});
       stopLoading();
     } catch (error) {

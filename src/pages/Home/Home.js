@@ -3,14 +3,18 @@ import Search from "./Search";
 import Title from "./Title";
 import Specialities from "./Specialities";
 import Features from "./Features";
+import ProfileModal from "./AreYouADoctor";
 function Home() {
   return (
-    <div className="main-wrapper">
-      <Search />
-      <Title />
-      <Specialities />
-      <Features />
-    </div>
+    <>
+      <ProfileModal />
+      <div className="main-wrapper">
+        <Search />
+        <Title />
+        <Specialities />
+        <Features />
+      </div>
+    </>
   );
 }
 

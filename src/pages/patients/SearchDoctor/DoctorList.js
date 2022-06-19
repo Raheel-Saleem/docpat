@@ -51,12 +51,8 @@ const doc_details = [
     img: "assets/img/doctors/doctor-thumb-01.jpg",
   },
 ];
-export default function DoctorList() {
+export default function DoctorList({doctors}) {
   const [docDetails, setDocDetails] = useState(doc_details);
-
-  useEffect(() => {
-    // setDocDetails(doc_details);
-  }, []);
 
   return (
     <div className="col-md-12 col-lg-8 col-xl-9">
