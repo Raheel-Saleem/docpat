@@ -56,8 +56,8 @@ function AreYouADoctor() {
   );
 }
 export default function ProfileModal() {
-  const {user} = useContext(AuthContext);
-  const [show, setShow] = useState(!user.isProfileCompleted);
+  const {user, isSignIn} = useContext(AuthContext);
+  const [show, setShow] = useState(isSignIn && !user.isProfileCompleted);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

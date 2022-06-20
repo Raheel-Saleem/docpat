@@ -1,6 +1,35 @@
-import React from "react";
-
+import React, {useState, useContext} from "react";
+import server from "../../../utils/server";
+import swal from "sweetalert";
+import {success, fail} from "./../../../utils/alert-messages";
+import AuthContext from "../../../store/auth-context";
+import axios from "axios";
 export default function BasicInformation({profile, onSetProfile}) {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const {user} = useContext(AuthContext);
+
+  const handleUploadImage = async () => {
+    try {
+      const fd = new FormData();
+      console.log("fd: ", fd);
+
+      fd.append("profileImage", selectedImage);
+      fd.append("userId", user.id);
+
+      const response = await axios({
+        method: "post",
+        url: "http://127.0.0.1:5000/image",
+        data: fd,
+        headers: {"Content-Type": "multipart/form-data"},
+      });
+      console.log("response: ", response);
+      swal(success);
+      // setSelectedImage(null);
+    } catch (error) {
+      swal(fail);
+      setSelectedImage(null);
+    }
+  };
   return (
     <div className="card">
       <div className="card-body">
@@ -10,14 +39,37 @@ export default function BasicInformation({profile, onSetProfile}) {
             <div className="form-group">
               <div className="change-avatar">
                 <div className="profile-img">
-                  <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image" />
+                  <img
+                    src={
+                      selectedImage
+                        ? URL.createObjectURL(selectedImage)
+                        : "assets/img/doctrs/doctor-thumb-02.jpg"
+                    }
+                    alt="Profile"
+                  />
+                </div>
+                <div className="upload-img">
+                  <div className="change-photo-btn">
+                    <span>
+                      <i className="fa fa-upload"></i> Select Photo
+                    </span>
+                    <input
+                      type="file"
+                      className="upload"
+                      onChange={(event) => {
+                        console.log(event.target.files[0]);
+                        setSelectedImage(event.target.files[0]);
+                      }}
+                    />
+                  </div>
+                  <small className="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                 </div>
                 <div className="upload-img">
                   <div className="change-photo-btn">
                     <span>
                       <i className="fa fa-upload"></i> Upload Photo
                     </span>
-                    <input type="file" className="upload" />
+                    <input type="submit" className="upload" onClick={() => handleUploadImage()} />
                   </div>
                   <small className="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                 </div>

@@ -4,7 +4,7 @@ import AuthContext from "../../store/auth-context";
 import {removeToken} from "./../../utils/token";
 
 const Navbar = () => {
-  const {isSignIn, onLogout, onLogin} = useContext(AuthContext);
+  const {isSignIn, onLogout, onLogin, user} = useContext(AuthContext);
   let navigate = useNavigate();
 
   function handleLogin() {
@@ -38,17 +38,25 @@ const Navbar = () => {
                 <li>
                   <Link to="/">Home</Link>
                 </li>
-                <li>
-                  <Link to="/dashboard">Doctors</Link>
-                  <ul className="submenu">
-                    <li className="">
-                      <Link to="/dashboard">Dashboard</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link to="#">Patients</Link>
-                </li>
+                {user.role == "Doctor" ? (
+                  <li>
+                    <Link to="/dashboard">Doctors</Link>
+                    <ul className="submenu">
+                      <li className="">
+                        <Link to="/dashboard">Dashboard</Link>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {user.role == "Patient" ? (
+                  <li>
+                    <Link to="dashboard">Patients</Link>
+                  </li>
+                ) : (
+                  ""
+                )}
 
                 <li>
                   <Link to="#">Admin</Link>

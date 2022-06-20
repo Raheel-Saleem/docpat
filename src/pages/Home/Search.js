@@ -30,7 +30,7 @@ export default function Search() {
                 type="submit"
                 className="btn btn-primary search-btn mt-0"
                 onClick={() => {
-                  navigate("all-doc", {replace: true});
+                  navigate("doc", {replace: true});
                 }}
               >
                 <i className="fas fa-search"></i> <span>Search</span>

@@ -10,17 +10,19 @@ export default function SearchDoctor() {
   useEffect(() => {
     const getDoctors = async () => {
       const response = await server.get("all_doctors");
-
       setDoctors(response.data.message);
     };
     getDoctors();
   }, []);
+  // useEffect(() => {
+  //   console.log("doctors: ", doctors);
+  // }, [doctors]);
 
   return (
     <div className="content">
       <div className="container-fluid">
         <div className="row">
-          {/* <SearchFilter /> */}
+          <SearchFilter />
           <DoctorList doctors={doctors} />
         </div>
       </div>

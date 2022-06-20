@@ -56,8 +56,8 @@ export default function DoctorList({doctors}) {
 
   return (
     <div className="col-md-12 col-lg-8 col-xl-9">
-      {docDetails.map((docData, index) => {
-        return <DoctorsList docData={docData} />;
+      {doctors.map((docData, index) => {
+        return <DoctorsList docData={docData} rating={Math.floor(Math.random() * 5) + 1} />;
       })}
     </div>
   );

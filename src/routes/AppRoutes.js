@@ -11,18 +11,19 @@ import Schedule from "../pages/doctors/schedule/ScheduleTiming";
 import SocialMedia from "../pages/doctors/SocialMedia/SocialMedia";
 import ChangePassword from "../pages/doctors/change-password/ChangePassword";
 import Accounts from "../pages/doctors/Accounts/Accounts";
-import SearchDoctor from "../pages/patients/SearchDoctor/Search-doctor";
+import SearchDoctor from "../pages/patients/SearchDoctor/SearchDoctor";
 import Appointments from "../pages/doctors/appointments/Appointments";
 import PatientLayout from "../layout/PatientLayout";
 import PatientProfile from "../pages/patients/profile/PatientProfile";
 import AuthContext from "../store/auth-context";
 function AppRoutes() {
   const {user} = useContext(AuthContext);
-
+  const isDoctor = true;
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="doc" element={<SearchDoctor />} />
 
         <Route element={user.role === "Doctor" ? <DoctorLayout /> : <PatientLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
@@ -32,7 +33,6 @@ function AppRoutes() {
           <Route path="change-password" element={<ChangePassword />} />
           <Route path="account" element={<Accounts />} />
           <Route path="appoint" element={<Appointments />} />
-          <Route path="all-doc" element={<SearchDoctor />}></Route>
           <Route path="pat-profile" element={<PatientProfile />}></Route>
         </Route>
       </Route>
